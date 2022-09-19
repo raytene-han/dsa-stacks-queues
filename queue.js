@@ -1,3 +1,5 @@
+const LinkedList = require("./linked-list");
+
 /** Node: node for a queue. */
 
 class Node {
@@ -16,19 +18,31 @@ class Queue {
   first = null;
   last = null;
   size = 0;
+  // _list = new LinkedList();
+  _array = [];
 
   /** enqueue(val): add new value to end of the queue. Returns undefined. */
 
   enqueue(val) {
-    if (this.size === 0) {
-      this.first = new Node(val);
-      this.last = this.first;
-      this.size++;
-    } else {
-      this.last.next = new Node(val);
-      this.last = this.last.next;
-      this.size++;
-    }
+    // if (this.size === 0) {
+    //   this.first = new Node(val);
+    //   this.last = this.first;
+    //   this.size++;
+    // } else {
+    //   this.last.next = new Node(val);
+    //   this.last = this.last.next;
+    //   this.size++;
+    // }
+    // LINKED LISTS:
+    // this._list.push(val);
+    // this.first = this._list.head;
+    // this.last = this._list.tail;
+    // this.size = this._list.length;
+    // ARRAYS:
+    this._array.push(new Node(val));
+    this.first = this._array[0];
+    this.last = this._array[this._array.length - 1];
+    this.size = this._array.length;
   }
 
   /** dequeue(): remove the node from the start of the queue
@@ -40,20 +54,33 @@ class Queue {
       return null;
     }
 
-    if (this.size === 1) {
-      let temp = this.first.val;
-      this.first = null;
-      this.last = null;
-      this.size--;
-      return temp;
-    }
+    // if (this.size === 1) {
+    //   let temp = this.first.val;
+    //   this.first = null;
+    //   this.last = null;
+    //   this.size--;
+    //   return temp;
+    // }
 
-    let firstVal = this.first;
-    this.first = firstVal.next;
-    firstVal.next = null;
-    this.size--;
+    // let firstVal = this.first;
+    // this.first = firstVal.next;
+    // firstVal.next = null;
+    // this.size--;
 
-    return firstVal.val
+    // return firstVal.val
+    // LINKED LISTS:
+    // let removed = this._list.shift();
+    // this.first = this._list.head;
+    // this.last = this._list.tail;
+    // this.size = this._list.length;
+
+    // return removed;
+    // ARRAYS:
+    let removed = this._array.shift().val;
+    this.first = this._array[0];
+    this.size = this._array.length;
+
+    return removed;
   }
 
   /** peek(): return the value of the first node in the queue. */
